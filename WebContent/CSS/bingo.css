@@ -1,0 +1,21 @@
+body{
+	background-color :  #e9ece5;
+
+}
+
+input.invalid {
+	background-color: pink;
+	border:2px red inset;
+}
+
+label.invalid{
+	font-weight: bold;
+	color:#f00;
+}
+
+.error {
+	font-weight:bold;
+	font-color:red;
+	flot:right;
+	margin: 0px;
+}

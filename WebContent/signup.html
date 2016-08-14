@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<head>
+	<title>User Profile</title>
+
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="script01.css" />
+	<link rel="stylesheet" href="bingo.css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="javascript.js"></script>
+	<script type="text/javascript" src="signup.js"></script>
+	
+
+</head>
+
+<body>
+	
+
+
+	<form id="profilefrom" action="SignUp" method=”post”>
+		<div id="errors"></div>
+		<p>Please fill up the form below to create a new account</p>
+		<p> <label for="username">User Name <input type="text" size="20" id="username" class ="reqd" name ="username" data-error = "User Name is manditory"/> </label>  </p>
+		<p id="nameerror" class="error"></p>
+
+		<p> <label for="password">Password <input type="password" size="20" id="password" class ="reqd" name = "password"/></label></p>
+		<p id="passworderror" class="error"></p>
+
+		<p> <label for="password">Please Enter your password again<input type="password" size="50" id="password1" class ="reqd"/></label></p>
+		<p id="password1error" class="error"></p>	
+
+		<p> <label for="email">Email Address <input type="text" size="50" id="email" class ="reqd" name = "email"/></label></p>
+		<p id="emailerror" class="error">hello</p>
+		
+		<p> Is there anything that you want us to know about you? </p>
+		<textarea name="command" id="command" cols="70" rows="10" id="commands" name="command"> </textarea>
+		
+
+		<fieldset form="profilefrom">
+			<legend>Terms & Conditions</legend>
+			<p>	<input type="checkbox"  id="terms" class ="checked"/>	<label for="terms">I have agreed on all policies and terms mentioned above</label></p>
+			<p>All rights are reserved. Our company might change the game policy any time without notice. All sale are final. We do not offer return and refund. If you have any questions, please contact our customer services from 9am to 5pm Pacific Time.</p>
+			<p id="termserror" class="error"></p>
+
+		</fieldset>
+		
+		<input type="submit" id="submit" />
+	</form>
+
+
+<a href="home.html">Home</a>
+<a href="signin.html">signIn</a>
+	
+
+
+</body>
+
+
+
+
+
+
+
+</html>

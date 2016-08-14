@@ -1,0 +1,44 @@
+JDBC 
+
+1. Connect to MySQL Database with Java
+    1. import java.sql.* ;
+    2. Within the try bock :  
+        1. Get a connection to database  (one connection of many statements)
+            1. Connection myConn = DriverManager.getConnection(“jdbc:mysql://localhost:3306/Database_Name”, “Uer_Name (mysql)” , “password(mysql PW)”)
+        2. Create a Statement (One statement for one sql )
+            1. Statement myStmt = myConn.createStatement();
+        3. Execute sql query
+            1. ResultSet rs = myStmt.executeQuery (“SELECT * FORM EMOLOYEE”);
+        4. Process the result set 
+            1. while (rs.next()){ System. out.println (rs.getString("USRNAME") + ", " + rs.getString("USRPW"))}
+    3. whithin the catch block 
+        catch (exception e){
+        //deal with exception
+        }
+
+3. Prepared Statements (Precompiled Statement)
+    1. Create the prepared statement
+        PreparedStatement myStmt = myConn.prepareStatement("sql with 2 ?");
+    2. Set parameter values for type and position (parameters positions are 
+    1 based, left-to-right)
+        myStmt.setDoule (1,8000);
+        myStmt.setString (2,"legal");
+    3. Execute the query with executeQuery()
+    ResultSet rs = myStmt.executeQuery();
+
+
+2. Statement Class Java
+ResultSet   executeQuery(String sql)
+            Executes the given SQL statement, which returns a single ResultSet object.
+
+int         executeUpdate(String sql)
+            Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE statement or an SQL statement that returns nothing, such as an SQL DDL statement.
+            // It will return how many rows are affected
+
+Prepared statements basically work like this:
+
+    Prepare: An SQL statement template is created and sent to the database. Certain values are left unspecified, called parameters (labeled "?"). Example: INSERT INTO MyGuests VALUES(?, ?, ?)
+
+    The database parses, compiles, and performs query optimization on the SQL statement template, and stores the result without executing it
+
+    Execute: At a later time, the application binds the values to the parameters, and the database executes the statement. The application may execute the statement as many times as it wants with different values
