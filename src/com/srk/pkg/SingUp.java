@@ -5,7 +5,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Date;
+import java.util.Enumeration;
 import java.sql.*;
 
 import javax.servlet.ServletException;
@@ -13,6 +16,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.xml.internal.bind.v2.model.core.Element;
+
+
 
 /**
  * Servlet implementation class SingUp
@@ -37,10 +44,9 @@ public class SingUp extends HttpServlet {
 		Hashtable<String, String> customerHash = new Hashtable<String, String>();
 		customerHash.put("USERNAME", (String)request.getParameter("username"));
 		customerHash.put("PASSWORD", (String)request.getParameter("password"));
-		customerHash.put("PASSWORD1",(String)request.getParameter("password1"));
 		customerHash.put("COMMAND", (String)request.getParameter("command"));
 		customerHash.put("EMAIL", (String)request.getParameter("email"));
-		customerHash.put("TERMS", (String)request.getParameter("terms"));
+		customerHash.put("PASSWORD1",(String)request.getParameter("password1"));
 		processCustomerInfo(customerHash);
 		 //TODO: when it is done go back to the log In page 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -53,16 +59,12 @@ public class SingUp extends HttpServlet {
 		String passWord1 = customerHash.get("PASSWORD1");
 		String command = customerHash.get("COMMAND");
 		String eMail = customerHash.get("EMAIL");
-		String terms = customerHash.get("TERMS");
-		
-		
 		
 		Date today = (Date) Calendar.getInstance().getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	    String curday = sdf.format(today);
-	    
-	    
-	    
+
+	    customerHash = editSignUp(customerHash);
 			
 		PreparedStatement ps = null;
 		Connection connection = null;
@@ -105,6 +107,18 @@ public class SingUp extends HttpServlet {
 		
 	}
 		
+
+	private Hashtable<String, String> editSignUp(Hashtable<String, String> customerHash) {
+		
+		
+		//TODO: check each attribute to be empty and password match.. 
+		
+		
+		
+		
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
