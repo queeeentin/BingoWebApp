@@ -47,6 +47,7 @@ public class SingUp extends HttpServlet {
 		customerHash.put("COMMAND", (String)request.getParameter("command"));
 		customerHash.put("EMAIL", (String)request.getParameter("email"));
 		customerHash.put("PASSWORD1",(String)request.getParameter("password1"));
+		
 		processCustomerInfo(customerHash);
 		 //TODO: when it is done go back to the log In page 
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -59,12 +60,14 @@ public class SingUp extends HttpServlet {
 		String passWord1 = customerHash.get("PASSWORD1");
 		String command = customerHash.get("COMMAND");
 		String eMail = customerHash.get("EMAIL");
+		String msg = "success";
 		
 		Date today = (Date) Calendar.getInstance().getTime();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-	    String curday = sdf.format(today);
-
-	    customerHash = editSignUp(customerHash);
+		String curday = sdf.format(today);
+		
+		customerHash.put("msg", msg);
+	    	customerHash = editSignUp(customerHash);
 			
 		PreparedStatement ps = null;
 		Connection connection = null;
@@ -109,8 +112,18 @@ public class SingUp extends HttpServlet {
 		
 
 	private Hashtable<String, String> editSignUp(Hashtable<String, String> customerHash) {
+		String userName = customerHash.get("USERNAME");
+		String passWord = customerHash.get("PASSWORD");
+		String passWord1 = customerHash.get("PASSWORD1");
+		String command = customerHash.get("COMMAND");
+		String eMail = customerHash.get("EMAIL");
+		String msg = customerHash.get("msg");
+		Hashtable<String, String> errors = new Hashtable<String, String>();
 		
-		
+		if(userName.equals("")){
+			msg = "error";
+			
+		}
 		//TODO: check each attribute to be empty and password match.. 
 		
 		
