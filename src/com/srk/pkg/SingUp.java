@@ -47,19 +47,19 @@ public class SingUp extends HttpServlet {
 		customerHash.put("COMMAND", (String)request.getParameter("command"));
 		customerHash.put("EMAIL", (String)request.getParameter("email"));
 		customerHash.put("PASSWORD1",(String)request.getParameter("password1"));
-		
 		processCustomerInfo(customerHash);
 		 //TODO: when it is done go back to the log In page 
+		//TODO: put the error messages into each error fielf using setattritbute()
+		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
  	}
 
 	
-	private void processCustomerInfo(Hashtable<String, String> customerHash) {
-		String userName = customerHash.get("USERNAME");
-		String passWord = customerHash.get("PASSWORD");
-		String passWord1 = customerHash.get("PASSWORD1");
-		String command = customerHash.get("COMMAND");
-		String eMail = customerHash.get("EMAIL");
+	private Hashtable processCustomerInfo(Hashtable customerHash) {
+		String userName = (String) customerHash.get("USERNAME");
+		String passWord = (String) customerHash.get("PASSWORD");
+		String command = (String) customerHash.get("COMMAND");
+		String eMail = (String) customerHash.get("EMAIL");
 		String msg = "success";
 		
 		Date today = (Date) Calendar.getInstance().getTime();
@@ -67,8 +67,12 @@ public class SingUp extends HttpServlet {
 		String curday = sdf.format(today);
 		
 		customerHash.put("msg", msg);
-	    	customerHash = editSignUp(customerHash);
-			
+	    customerHash = editSignUp(customerHash);
+		
+	    if(customerHash.get("msg").equals("error")){
+	    	return customerHash;
+	    }
+	    
 		PreparedStatement ps = null;
 		Connection connection = null;
 		
@@ -108,29 +112,50 @@ public class SingUp extends HttpServlet {
 			} catch (Exception e) {}
 		}
 		
+		return customerHash;
+		
 	}
 		
 
-	private Hashtable<String, String> editSignUp(Hashtable<String, String> customerHash) {
-		String userName = customerHash.get("USERNAME");
-		String passWord = customerHash.get("PASSWORD");
-		String passWord1 = customerHash.get("PASSWORD1");
-		String command = customerHash.get("COMMAND");
-		String eMail = customerHash.get("EMAIL");
-		String msg = customerHash.get("msg");
+	private Hashtable editSignUp(Hashtable hashIn) {
+		String userName = (String) hashIn.get("USERNAME");
+		String passWord = (String) hashIn.get("PASSWORD");
+		String passWord1 = (String) hashIn.get("PASSWORD1");
+		//String command = (String) hashIn.get("COMMAND");
+		String eMail = (String) hashIn.get("EMAIL");
+		String msg = (String) hashIn.get("msg");
 		Hashtable<String, String> errors = new Hashtable<String, String>();
 		
 		if(userName.equals("")){
 			msg = "error";
-			
+			errors.put("USRNAMEERROR", "User Name is mandatory");
 		}
-		//TODO: check each attribute to be empty and password match.. 
+		
+		if(passWord.equals("")){
+			msg = "error";
+			errors.put("PSSWORDERROR", "Password is mandatory");
+		}
+		
+		if(passWord1.equals("")){
+			msg = "error";
+			errors.put("PASSWORD1ERROR", "Please enter password again");
+		} 
 		
 		
+		if(eMail.equals("")){
+			msg = "error";
+			errors.put("EMAILERROR", "Email is Manditory");
+		} 
 		
+		if(!passWord.equals(passWord1)){
+			msg = "error";
+			errors.put("EMAILERROR", "Passwords do not match ");
+		} 
 		
-		// TODO Auto-generated method stub
-		return null;
+		hashIn.put("errors", errors);
+		hashIn.put("msg", msg);
+
+		return hashIn;
 	}
 
 	/**
