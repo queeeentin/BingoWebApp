@@ -48,8 +48,10 @@ public class SingUp extends HttpServlet {
 		customerHash.put("EMAIL", (String)request.getParameter("email"));
 		customerHash.put("PASSWORD1",(String)request.getParameter("password1"));
 		processCustomerInfo(customerHash);
+		//TODO: put the error messages into each error fields using setattritbute()
+		
 		 //TODO: when it is done go back to the log In page 
-		//TODO: put the error messages into each error fielf using setattritbute()
+		
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
  	}
